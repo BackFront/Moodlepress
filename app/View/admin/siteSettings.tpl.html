@@ -1,0 +1,89 @@
+<form action="" method="post">
+    <table style="width: 100%;padding: 15px;">
+        <tr>
+            <td>
+                <div class="header-box">
+                    Configurações<i class="icon-paperclip"></i>
+                    <span class="tab">
+                        <a href="#tab1" class="tab select">Tema</a>
+                        <a href="#tab2" class="tab">Desenvolvedor</a>
+                        <a href="#tab3" class="tab">Sobre</a>
+                    </span>
+                </div>
+                <div class="body-box clearfix">
+                    <div data-tab="#tab1" class="element active">
+                        <div class="page-header">
+                            <h1>Geral <small></small></h1>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="screen-title">Titulo do site: </label>
+                                        <input type="text" id="screen-title" name="siteSetting_title" value="#siteSetting_title#" class="full-width" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="screen-subtitle">Subtitulo: </label>
+                                        <input type="text" id="screen-subtitle" name="siteSetting_subtitle" value="#siteSetting_subtitle#" class="full-width"/>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="screen-title">Esquema de cores: </label>
+                                        <select name="siteSetting_schemeColor" class="full-width">
+                                            <option value="#siteSetting_schemeColor#" selected="selected">#siteSetting_schemeColor#</option>
+                                            <option disabled>-----------------------------------</option>
+                                            <option value="skin-green" style="background-color:#00A65A">Skin Green</option>
+                                            <option value="skin-blue" style="background-color:#3C8DBC">Skin Blue</option>
+                                            <option value="skin-yellow" style="background-color:#F39C12">Skin Yellow</option>
+                                            <option value="skin-purple" style="background-color:#605CA8">Skin Purple</option>
+                                            <option value="skin-red" style="background-color:#DD4B39">Skin Red</option>
+                                            <option value="skin-dark" style="background-color:#666">Skin Dark</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="left_footer">Rodape esquerdo: </label>
+                                        <textarea id="left_footer" name="siteSetting_footerLeft" class="full-width">#siteSetting_footerLeft#</textarea>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="right_footer">Rodape direito: </label>
+                                        <textarea id="left_footer" name="siteSetting_footerRight" class="full-width">#siteSetting_footerRight#</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="page-header">
+                            <h1>Tela de login <small></small></h1>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12">    
+                                        <label for="screen-title">Título da tela: </label>
+                                        <input type="text" id="screen-title" name="" value="" class="full-width"/>
+                                    </div>
+                                    <div class="col-md-12">    
+                                        <label for="screen-description">Descrição: </label>
+                                        <textarea id="screen-description" name="" class="full-width"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div data-tab="#tab2"  class="element">
+                        Tab 02
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" name="submit" id="submit" class="button button-primary" value="Salvar alterações">
+            </td>
+        </tr>
+    </table>
+</form>

@@ -1,0 +1,26 @@
+<ul class="sidebar-menu">
+    <li class="header">RECEPÇÃO</li>
+    <li data-controller="dashboard">
+        <a href="index.php">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li data-controller="calendario">
+        <a href="?exe=calendario">
+            <i class="fa fa-calendar"></i>
+            <span>Calendário</span>
+        </a>
+    </li>    
+    <li class="treeview">
+        <a href="#"><span>Usuario</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul class="treeview-menu">
+            <li data-controller="user/profile">
+                <i class="fa fa-circle-o"></i>
+                <a href="?exe=user/profile">Perfil</a>
+            </li>
+            <li data-controller="user/edit"><a href="?exe=user/edit">Editar</a></li>
+            <li data-controller="user/new"><a href="?exe=user/new">Criar</a></li>
+        </ul>
+    </li>
+</ul>

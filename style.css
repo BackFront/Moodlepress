@@ -1,0 +1,26 @@
+/*
+Theme Name: MoodlPress
+Theme URI: http://moodlepress.alvesdougla.com.br/
+Author: Douglas Alves
+Author URI: http://alvesdougla.com.br/
+Description: Tema modular em MVC para sistema de e-learning
+Version: 1.0
+License: Copyright
+License URI: http://alvesdouglas.com.br/wordpress/escritoriovirtual/licence.html
+Tags: moodlepress, douglas alves, ava, elearning, lms
+Text Domain: Esse template, assim como as classes, funções, modulos, conteudos quaisquer que estejam na pasta do tema, estão protegidos sobre direitos autorais
+e não podem ser modificados sem aviso previo ao autor e desenvolvedor do tema
+*/
+
+pre.xdebug-var-dump {
+    position: fixed !important;
+    z-index: 999999999 !important;
+}
+
+
+.dropdown-menu .user-image {
+    float: none !important;
+}
+
+#btn-sair::before { content: '\eaca '; font-family: "icomoon" }
+#btn-edit-profile::before { content: '\e8d6 '; font-family: "icomoon" }
