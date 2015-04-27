@@ -15,35 +15,69 @@ if ( is_user_logged_in() ) {
             if ( !session_id() ) :
                 session_start();
             endif;
-            Load( ["Context"] );
+            Load( ["Context" ] );
             $Skin = new Context( $user->roles[ 0 ] );
             wp_redirect( home_url() );
             exit;
         } else {
-            echo $message = 'Login ou senha incorreto';
+            $msga = [
+                "type" => "danger",
+                "head" => "Erro",
+                "body" => "Login e/ou senha incorreto"
+            ];
+            Load( ["Alert" ] );
+            $msg = new Alert;
+
+            $msg->PHPErro( $msga );
         }
     }
 }
 ?>
-<form class="login-box" method="post" action="">
-    <a class="navbar-brand col-lg-12" style="color:#fff;text-align: center; margin-bottom: 10px" href="<?php echo get_home_url(); ?>">ESCRITÓRIO VIRTUAL CETEC <br />
-        <small style="font-size: 9px; letter-spacing: .1px;">CENTRO DE ESTUDOS E TECNOLOGIAS EDUCACIONAIS</small>
-        <br />
-    </a>
+<div class="login-box">
+    <div class="login-logo">
+        <a href="#"><b><?=siteSetting_title?></b> <?=siteSetting_subtitle?></a>
+    </div><!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Faça o login para iniciar uma sessão</p>
+        <form action="" method="post">
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="Login" name="log"/>
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" placeholder="Senha" name="pwd"/>
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">    
+                    <div class="checkbox icheck">
+                        <label>
+                            <input type="checkbox"> Lembrar
+                        </label>
+                    </div>                        
+                </div><!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat" value="logar">Logar</button>
+                </div><!-- /.col -->
+            </div>
+        </form>
 
-    <div class="form-group">
-        <label for="exampleInputEmail1">Login</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" name="log" placeholder="Entre com seu login">
-    </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Senha</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" name="pwd" placeholder="Entre com sua senha">
-    </div>
-    <button type="submit" class="btn btn-default" value="logar">Entrar</button>
-</form>
+        <a href="#">Esqueci minha senha</a><br>
 
+    </div><!-- /.login-box-body -->
+</div><!-- /.login-box -->
 
-
-
+<script src="<?php echo bloginfo( 'template_url' ) ?>/assets/plugins/jQuery/jQuery-2.1.3.min.js"></script>
+<script src="<?php echo bloginfo( 'template_url' ) ?>/assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="<?php echo bloginfo( 'template_url' ) ?>/assets/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+<script>
+    $(function() {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
+    });
+</script>
 <?php
 get_footer( "login" );
