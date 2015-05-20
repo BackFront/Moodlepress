@@ -1,5 +1,4 @@
 <?php
-
 @define(ThemePath, esc_url(get_template_directory_uri()));
 @define(SUBDIR, ''); //Usar caso o projeto n�o esteja na pasta raiz do htdocs
 @define(BASEPATCH, substr($_SERVER['SCRIPT_FILENAME'], 0, -strlen($_SERVER['SCRIPT_NAME'])) . SUBDIR);
@@ -24,6 +23,8 @@ function inc($DirFile) {
 }
 
 inc("app/Inc/siteSettings.inc.php");
+inc("app/Inc/metabox.inc.php");
+inc("app/Inc/postType.inc.php");
 
 function mytheme_enqueue_options_style() {
     wp_enqueue_style('mytheme-options-style', get_template_directory_uri() . '/assets/admin/admin.css');

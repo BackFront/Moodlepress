@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <?php
-Load(["Context", "Dashboard"]);
+$user = wp_get_current_user();
+Load(["Context", "Dashboard", "Message", "Forum", "TemplateView"]);
 $Skin = new Context();
 $CFG = new Dashboard();
+$Message = new Message();
+$Forum = new Forum($user->ID);
+$MainNav = new TemplateView();
 
-$user = wp_get_current_user();
 $userName = $user->display_name;
 
+#var_dump($Message->updateUserMessageCount());
+#var_dump($Skin->getContextSession());
 #var_dump( $CFG);
 ?>
 <html>
@@ -37,7 +42,7 @@ $userName = $user->display_name;
             <header class="main-header">
 
                 <!-- Logo -->
-                <a href="?exe=home" class="logo"><b><?=siteSetting_title?></b> <?=siteSetting_subtitle?></a>
+                <a href="?exe=home" class="logo"><b><?= siteSetting_title ?></b> <?= siteSetting_subtitle ?></a>
 
                 <!-- Header Navbar -->
                 <nav class="navbar navbar-static-top" role="navigation">
@@ -53,31 +58,17 @@ $userName = $user->display_name;
                                 <!-- Menu toggle button -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-envelope-o"></i>
-                                    <span class="label label-success">4</span>
+                                    <span class="label label-success"><?php echo$Message->checkNewMessages() ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li class="header">Você tem %n% novas mensagens</li>
+                                    <li class="header">Você tem <?php echo sprintf(_n('1 nova mensagem', '%s novas mensagens', $Message->checkNewMessages()), $Message->checkNewMessages()); ?></li>
                                     <li>
                                         <!-- inner menu: contains the messages -->
                                         <ul class="menu">
-                                            <li><!-- start message -->
-                                                <a href="#">
-                                                    <div class="pull-left">
-                                                        <!-- User Image -->
-                                                        <?php echo get_avatar($user->ID, 160); ?>
-                                                    </div>
-                                                    <!-- Message title and timestamp -->
-                                                    <h4>                            
-                                                        #Nome de Quem mandou#
-                                                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                                    </h4>
-                                                    <!-- The message -->
-                                                    <p>#Titulo da msg#</p>
-                                                </a>
-                                            </li><!-- end message -->                      
+                                            <?php inc("/app/Controller/message/ItemListNavMsg.php") ?>                    
                                         </ul><!-- /.menu -->
                                     </li>
-                                    <li class="footer"><a href="#">Ver Todas</a></li>
+                                    <li class="footer"><a href="?exe=mensagens">Ver Todas</a></li>
                                 </ul>
                             </li><!-- /.messages-menu -->
 
@@ -86,24 +77,17 @@ $userName = $user->display_name;
                                 <!-- Menu toggle button -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="icon-comments-o"></i>
-                                    <span class="label label-info">10</span>
+                                    <span class="label label-info"><?php echo$Forum->checkUpdates() ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li class="header">%n% Novas discussões nos Fóruns</li>
+                                    <li class="header">Você tem <?php echo sprintf(_n('1 nova discussão', '%s novas discussões', $Forum->checkUpdates()), $Forum->checkUpdates()); ?> nos Fóruns</li>
                                     <li>
                                         <!-- Inner Menu: contains the notifications -->
                                         <ul class="menu">
-                                            <li><!-- start notification -->
-                                                <a href="#">
-                                                    #Nome do Forum# <small class="label pull-right bg-aqua-active">3</small>
-                                                </a>
-                                                <a href="#">
-                                                    #Nome do Forum# <small class="label pull-right bg-aqua-active">7</small>
-                                                </a>
-                                            </li><!-- end notification -->                      
+                                            <?php inc("/app/Controller/forum/ItemListNavMsg.php") ?>
                                         </ul>
                                     </li>
-                                    <li class="footer"><a href="#">Ver Todas</a></li>
+                                    <li class="footer"><a href="?exe=forum">Ver Todas</a></li>
                                 </ul>
                             </li>
                             <!-- Tasks Menu -->
@@ -203,7 +187,23 @@ $userName = $user->display_name;
                         </div>
                     </form>
                     <!-- /.search form -->
-                    <?php inc("/app/View/nav/sidebarMenu.tpl.html") ?>
+                    <?php
+                    $Template = get_template_directory() . "/app/View/nav/sidebarMenu";
+                    $MainNav->Load($Template);
+
+                    if (current_user_can('show_nav_100')) :
+                        $Template = get_template_directory() . "/app/View/nav/sidebarMenu_100";
+                        $MainNavOther->Load($Template);
+                        $Nav_100 = $MainNavOther->getShow(["a" => null]);
+                    endif;
+
+                    $Datas = [
+                        "message_count" => $Message->checkNewMessages(),
+                        "nav_100" => $Nav_100
+                    ];
+
+                    $MainNav->show($Datas);
+                    ?>
                     <!-- Sidebar Menu -->
 
                     <!-- /.sidebar-menu -->
@@ -223,4 +223,19 @@ $userName = $user->display_name;
                         <?php $CFG->Breadcrumb() ?>
                     </ol>
                 </section>
+                <div class="menssages-area">
+                    <?php
+                    $msga = [
+                        "type" => "default",
+                        "head" => "Foram adicionadas novas resoluções",
+                        "body" => "A nova resolução do <i>Acessa Escola</i> foi adicionada em Resoluções. <a href=\"#\">Clique para acessar</a>"
+                    ];
+                    Load(["Alert"]);
+                    $msg = new Alert;
+
+                    #$msg->PHPErro( $msga ); 
+                    ?>
+                </div>
                 <section class="content">
+                    <div class="container-fluid">
+                        

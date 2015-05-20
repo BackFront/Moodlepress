@@ -1,5 +1,4 @@
 <?php
-
 class TemplateView {
 
     private $Datas;
@@ -7,28 +6,23 @@ class TemplateView {
     private $Values;
     private $Template;
 
-    public function Load($Template, $BaseTemplates = false) {
-        if (!$BaseTemplates) :
-            $Template = str_replace('\\', DIRECTORY_SEPARATOR, $Template);
-        else:
-            $Template = get_template_directory() . '/app/View/' . $Template;
-            $Template = str_replace('\\', DIRECTORY_SEPARATOR, $Template);
-        endif;
-        $this->Template = (string) $Template;
-        $this->Template = file_get_contents($this->Template . '.tpl.html');
+    public function Load($Template) {
+        $Template = str_replace( '\\', DIRECTORY_SEPARATOR, $Template );
+        $this->Template = ( string ) $Template;
+        $this->Template = file_get_contents( $this->Template . '.tpl.html' );
         return $this->Template;
     }
 
     public function Show(array $Datas = null) {
         $this->setKeys($Datas);
         $this->setValues();
-        $this->showView();
+        echo $this->showView();
     }
 
     public function getShow(array $Datas) {
         $this->setKeys($Datas);
         $this->setValues();
-        $this->getShowView();
+        return $this->ShowView();
     }
 
     public function Request($File = null, array $Datas = null) {
@@ -50,11 +44,6 @@ class TemplateView {
     }
 
     private function showView() {
-        echo str_replace($this->Keys, $this->Values, $this->Template);
-    }
-
-    private function getShowView() {
         return str_replace($this->Keys, $this->Values, $this->Template);
     }
-
 }
