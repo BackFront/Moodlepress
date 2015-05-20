@@ -1,5 +1,4 @@
 <?php
-
 class Metabox
 {
 
@@ -133,12 +132,12 @@ class Metabox
             return $post_id;
         }
         foreach( $this->Fields as $field ) {
-            
+
             $name = $field[ 'id' ];
-            
-            
+
+
             $value = isset( $_POST[ $name ] ) ? $_POST[ $name ] : null;
-            
+
             if( !in_array( $field[ 'type' ], array( 'separator', 'title' ) ) ){
                 $old = get_post_meta( $post_id, $name, true );
                 $new = apply_filters( 'odin_save_metabox_' . $this->id, $value, $name );
