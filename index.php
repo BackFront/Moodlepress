@@ -10,7 +10,7 @@ get_header();
 
 #var_dump($user);
 //LOGOUT
-if ( $_GET[ 'action' ] == 'logout' ) :
+if ( isset($_GET[ 'action' ]) && $_GET[ 'action' ] == 'logout' ) :
     wp_logout();
     $Skin = new Context();
     $Skin->destroyContextSession();

@@ -1,6 +1,8 @@
 <?php
+
 class Context
 {
+
 
     private $ContextDesign;
     private $ContextName;
@@ -10,15 +12,17 @@ class Context
     function __construct( $UserType = null )
     {
         $this->UserType = $UserType;
-        if ( $this->UserType != null ) :
+        if( $this->UserType != null ) :
             $this->setContextTheme();
         endif;
+
     }
 
 
     public function getContextSession()
     {
-        return $_SESSION[ "Contexto" ];
+        return (isset( $_SESSION[ "Contexto" ] )) ? $_SESSION[ "Contexto" ] : null;
+
     }
 
 
@@ -26,18 +30,20 @@ class Context
     {
         $_SESSION[ "Contexto" ][ "Skin" ] = $this->ContextDesign;
         $_SESSION[ "Contexto" ][ "Name" ] = $this->ContextName;
+
     }
 
 
     public function destroyContextSession()
     {
         unset( $_SESSION[ "Contexto" ] );
+
     }
 
 
     public function setContextTheme( $Context = null )
     {
-        switch ( $this->UserType ):
+        switch( $this->UserType ):
             case "curriculomais" :
                 $this->ContextDesign = "skin-green";
                 $this->ContextName = "PCNP Currículo+";
@@ -59,6 +65,8 @@ class Context
                 break;
         endswitch;
         $this->setContextSession();
+
     }
-    
+
+
 }

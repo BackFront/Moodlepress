@@ -26,7 +26,7 @@ pre.xdebug-var-dump {
 #btn-edit-profile::before { content: '\e8d6 '; font-family: "icomoon" }
 
 body.login-page {
-    background: url(assets/dist/img/bg-login.jpg) no-repeat center / cover;
+    background: url(assets/dist/img/bg-login.jpg) no-repeat fixed center / cover;
 }
 
 /*====================================================

@@ -1,18 +1,19 @@
 <?php
+
 /**
  * Template Name: Login
  */
 get_header( "login" );
-if ( is_user_logged_in() ) {
+if( is_user_logged_in() ){
     wp_redirect( home_url() );
-} elseif ( $_POST[ 'log' ] || $_POST[ 'pwd' ] ) {
-    if ( !$_POST[ 'log' ] || !$_POST[ 'pwd' ] )
+} elseif( isset( $_POST[ 'log' ] ) || isset( $_POST[ 'pwd' ] ) ){
+    if( !$_POST[ 'log' ] || !$_POST[ 'pwd' ] )
         echo $message = 'Login ou senha está(ão) em branco';
     else {
         $user = wp_authenticate( $_POST[ 'log' ], $_POST[ 'pwd' ] );
-        if ( $user->ID > 0 ) {
+        if( $user->ID > 0 ){
             wp_set_auth_cookie( $user->ID );
-            if ( !session_id() ) :
+            if( !session_id() ) :
                 session_start();
             endif;
             Load( ["Context" ] );
@@ -32,10 +33,11 @@ if ( is_user_logged_in() ) {
         }
     }
 }
+
 ?>
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b><?=siteSetting_title?></b> <?=siteSetting_subtitle?></a>
+        <a href="#"><b><?= siteSetting_title ?></b> <?= siteSetting_subtitle ?></a>
     </div><!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">Faça o login para iniciar uma sessão</p>
@@ -71,7 +73,7 @@ if ( is_user_logged_in() ) {
 <script src="<?php echo bloginfo( 'template_url' ) ?>/assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo bloginfo( 'template_url' ) ?>/assets/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
 <script>
-    $(function() {
+    $(function () {
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-blue',
@@ -80,4 +82,5 @@ if ( is_user_logged_in() ) {
     });
 </script>
 <?php
+
 get_footer( "login" );
