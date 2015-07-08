@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <?php
-
 $user = wp_get_current_user();
 Load( ["Context", "Dashboard", "Message", "Forum", "TemplateView" ] );
 $Skin = new Context();
@@ -8,13 +7,13 @@ $CFG = new Dashboard();
 $Message = new Message();
 $Forum = new Forum( $user->ID );
 $MainNav = new TemplateView();
+$MainNavOther = clone $MainNav;
 
 $userName = $user->display_name;
 
 #var_dump($Message->updateUserMessageCount());
 #var_dump($Skin->getContextSession());
 #var_dump( $CFG);
-
 ?>
 <html>
     <head>
@@ -129,30 +128,32 @@ $userName = $user->display_name;
                                     <li class="user-header">
                                         <?php echo get_avatar( $user->ID, 160 ); ?>
                                         <p>
-                                            <?php echo$userName ?>
-                                            <small>Perfíl atual: <?php echo$Skin->getContextSession()[ "Name" ] ?></small>
+                                            Olá, <?php echo$userName ?>
+                                            <small>Seja bem-vindo</small>
                                         </p>
                                     </li>
                                     <!-- Menu Body -->
                                     <li class="user-body">
                                         <div class="col-xs-4 text-center">
                                             <i class="icon-apps"> </i>
-                                            <a href="cursos">Cursos</a>
+                                            <a href="<?php echo esc_url( home_url( '/cursos' ) ); ?>">Cursos</a>
                                         </div>
                                         <div class="col-xs-4 text-center">
-                                            <a href="#">Matriculados</a>
+                                            <i class="icon-apps"> </i>
+                                            <a href="#">Menu 2</a>
                                         </div>
-                                        <div class="col-xs-4 ">
-                                            <a href="#">Finalizados</a>
+                                        <div class="col-xs-4 text-center">
+                                            <i class="icon-apps"> </i>
+                                            <a href="#">Menu 3</a>
                                         </div>
                                     </li>
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat icon-exit" id="btn-edit-profile"> Editar Perfíl</a>
+                                            <a href="#" class="btn btn-default btn-flat"> Editar Perfíl</a>
                                         </div>
                                         <div class="pull-right">
-                                            <a href="?action=logout" class="btn btn-default btn-flat" id="btn-sair"> Sair</a>
+                                            <a href="?action=logout" class="btn btn-default btn-flat"> Sair</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -190,12 +191,17 @@ $userName = $user->display_name;
                         </div>
                     </form>
                     <!-- /.search form -->
+
                     <?php
-
                     $Template = get_template_directory() . "/app/View/nav/sidebarMenu";
-                    $MainNav->Load( $Template );
+                    $MainNav->Load( $Template ); /* Carrega o menu */
 
-                    if( current_user_can( 'show_nav_100' ) ) :
+                    /* Pega o level do usuario atual */
+                    $userLevel = (get_user_meta( $user->ID, 'mp_user_can', true )) ? get_user_meta( $user->ID, 'mp_user_can', true )[ 'user_level' ] : 0;
+
+
+                    /* Se for administrador carrega o menu de administrador */
+                    if ( "administrator" == wp_get_current_user()->roles ) :
                         $Template = get_template_directory() . "/app/View/nav/sidebarMenu_100";
                         $MainNavOther->Load( $Template );
                         $Nav_100 = $MainNavOther->getShow( ["a" => null ] );
@@ -203,13 +209,43 @@ $userName = $user->display_name;
                         $Nav_100 = null;
                     endif;
 
+                    /* Menu do usuario premim */
+                    if ( $userLevel >= 85 ) :
+                        $Template = get_template_directory() . "/app/View/nav/sidebarMenu_85";
+                        $MainNavOther->Load( $Template );
+                        $Nav_85 = $MainNavOther->getShow( [ 1 => null ] );
+                    else:
+                        $Nav_85 = null;
+                    endif;
+
+                    /* Menu do usuario cursista */
+                    if ( $userLevel >= 80 ) :
+                        $Template = get_template_directory() . "/app/View/nav/sidebarMenu_80";
+                        $MainNavOther->Load( $Template );
+                        $Nav_80 = $MainNavOther->getShow( [ 1 => null ] );
+                    else:
+                        $Nav_80 = null;
+                    endif;
+
+                    /* Menu do usuario tutor */
+                    if ( $userLevel >= 70 ) :
+                        $Template = get_template_directory() . "/app/View/nav/sidebarMenu_70";
+                        $MainNavOther->Load( $Template );
+                        $Nav_70 = $MainNavOther->getShow( [ 1 => null ] );
+                    else:
+                        $Nav_70 = null;
+                    endif;
+
                     $Datas = [
+                        "ativar_perfil" => ($userLevel > 1) ? "hidden" : null,
                         "message_count" => $Message->checkNewMessages(),
-                        "nav_100" => $Nav_100
+                        "nav_100" => $Nav_100,
+                        "nav_85" => $Nav_85,
+                        "nav_80" => $Nav_80,
+                        "nav_70" => $Nav_70
                     ];
 
                     $MainNav->show( $Datas );
-
                     ?>
                     <!-- Sidebar Menu -->
 
@@ -232,7 +268,6 @@ $userName = $user->display_name;
                 </section>
                 <div class="menssages-area">
                     <?php
-
                     $msga = [
                         "type" => "default",
                         "head" => "Foram adicionadas novas resoluções",
@@ -242,8 +277,7 @@ $userName = $user->display_name;
                     $msg = new Alert;
 
                     #$msg->PHPErro( $msga ); 
-
                     ?>
                 </div>
                 <section class="content">
-                    <div class="container-fluid">
+                    <div class="row">

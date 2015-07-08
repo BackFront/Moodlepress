@@ -2,8 +2,18 @@
 class Alert
 {
 
-
-    public static function PHPErro( $errParam, $errFile = null, $errDie = false )
+    /**
+     * 
+     * @param array $errParam
+     * 
+     * <b>$errParam['type'] = string</b> (success, danger, info, alert)
+     * <b>$errParam['head'] = "Mensagem do titulo da box"</b>
+     * <b>$errParam['body'] = "Mensagem da parte interna da box"</b>
+     * 
+     * @param type $errFile
+     * @param type $errDie
+     */
+    public static function PHPErro( array $errParam, $errFile = null, $errDie = false )
     {
         Load( [ "TemplateView" ] );
         $Template = $errParam[ "type" ];

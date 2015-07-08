@@ -1,30 +1,18 @@
 <?php
 @define(ThemePath, esc_url(get_template_directory_uri()));
-@define(SUBDIR, ''); //Usar caso o projeto n�o esteja na pasta raiz do htdocs
+@define(SUBDIR, 'opencode'); //Usar caso o projeto n�o esteja na pasta raiz do htdocs
 @define(BASEPATCH, substr($_SERVER['SCRIPT_FILENAME'], 0, -strlen($_SERVER['SCRIPT_NAME'])) . SUBDIR);
 @define(BASEURL, 'http://' . $_SERVER['SERVER_NAME'] . SUBDIR);
-
-function Load(Array $Class) {
-    foreach ($Class as $Class):
-        $Class = str_replace('\\', DIRECTORY_SEPARATOR, $Class);
-        $dirName = get_template_directory() . '/app/Class';
-        if (file_exists("{$dirName}/{$Class}.class.php")):
-            require_once("{$dirName}/{$Class}.class.php");
-        elseif (file_exists("{$dirName}/{$Class}.php")):
-            require_once("{$dirName}/{$Class}.php");
-        else:
-            die("Erro ao incluir {$dirName}/{$Class}.class.php<hr />");
-        endif;
-    endforeach;
-}
 
 function inc($DirFile) {
     require(get_template_directory() . DIRECTORY_SEPARATOR . $DirFile);
 }
 
+inc("app/Inc/Load.inc.php");
 inc("app/Inc/siteSettings.inc.php");
 inc("app/Inc/metabox.inc.php");
 inc("app/Inc/postType.inc.php");
+inc("app/Inc/LoadModules.inc.php");
 
 function mytheme_enqueue_options_style() {
     wp_enqueue_style('mytheme-options-style', get_template_directory_uri() . '/assets/admin/admin.css');

@@ -1,5 +1,5 @@
 <ul class="sidebar-menu">
-    <li class="header">GERAL</li>
+    <li class="header">ALUNO</li>
     <li data-controller="dashboard">
         <a href="index.php">
             <i class="fa fa-dashboard"></i>
@@ -11,17 +11,15 @@
             <i class="fa fa-calendar"></i>
             <span>Calendário</span>
         </a>
-    </li>    
-    <li class="treeview">
-        <a href="#"><span>Usuario</span> <i class="fa fa-angle-left pull-right"></i></a>
-        <ul class="treeview-menu">
-            <li data-controller="user/profile">
-                <i class="fa fa-circle-o"></i>
-                <a href="?exe=user/profile">Perfil</a>
-            </li>
-            <li data-controller="user/edit"><a href="?exe=user/edit">Editar</a></li>
-            <li data-controller="user/new"><a href="?exe=user/new">Criar</a></li>
-        </ul>
     </li>
+    <li class="#ativar_perfil#">
+        <a href="?exe=user/active&level=cursista">
+            <i class="icon-power-off"></i>
+            <span>Ativar perfíl de cursista</span>
+        </a>
+    </li>
+    #nav_85#
+    #nav_80#
+    <!--    #nav_70#-->
     #nav_100#
 </ul>

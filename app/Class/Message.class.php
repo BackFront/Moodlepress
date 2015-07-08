@@ -38,8 +38,8 @@ class Message
      */
     public function checkNewMessages()
     {
-        $postCount = (int)$this->getPostsMenssagesCount();
-        $userCount = (int)$this->getUserMessageCount()[0];
+        $postCount = ( int ) $this->getPostsMenssagesCount();
+        $userCount = ( int ) $this->getUserMessageCount()[ 0 ];
         return $postCount - $userCount;
     }
 
@@ -62,7 +62,11 @@ class Message
      */
     private function getUserMessageCount()
     {
-        return get_user_meta( $this->userID, self::UserMeta );
+        if ( get_user_meta( $this->userID, self::UserMeta ) ) :
+            return get_user_meta( $this->userID, self::UserMeta );
+        else:
+            return 0;
+        endif;
     }
 
 

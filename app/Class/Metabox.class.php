@@ -1,8 +1,6 @@
 <?php
-
 class Metabox
 {
-
 
     private $Slug;
     private $LabelTitle;
@@ -11,10 +9,11 @@ class Metabox
     private $Priority;
     private $Fields;
     private $CurrentValue;
+    private $fieldsNotification = null;
 
 
     /**
-     * 
+     *
      * @param string       $Slug Slug da metabox
      * @param string       $LabelTitle Titulo do Label que ira aparecer na tela de edicao do post
      * @param string|array $PostTypeScreen Qual post_type recebera o metabox examples include 'post','page','dashboard','link','attachment','custom_post_type' where custom_post_type is the custom post type slug). <i>Default: post</i>
@@ -28,40 +27,39 @@ class Metabox
         $this->PostTypeScreen = $PostTypeScreen;
         $this->Context = $Context;
         $this->Priority = $Priority;
-
     }
 
 
     /**
-     * 
+     *
      * @param array $Fields
-     * 
-     * 
+     *
+     *
      * <b>Exemplo de utilização: </b>
      * $Metabox->setFields(array(
      *      array(
      *          'name' => "Campo de Upload",
      *          'id' => "campo_upload",
      *          'default' => "http://myfilesupload.net/archive/129740", //Valor padrao para o campo
-     *          'type' => "file", 
+     *          'type' => "file",
      *          'labelDescription' => "cole a URL do arquivo ou selecione diretamente do computador"
      *      ),
      *      array(
      *          'title' => "Campo de Texto",
-     *          'id' => "campo_texto", 
-     *          'type' => "text", 
+     *          'id' => "campo_texto",
+     *          'type' => "text",
      *          'labelDescription' => "Escreva algo sobre esse post",
-     *          'attributes'  => array( 
+     *          'attributes'  => array(
      *              'placeholder' => 'Some text here!',
      *              'size' => '80'
      *          )
      *      ),
      *      array(
      *          'title' => "Select",
-     *          'id' => "campo_select", 
-     *          'type' => "select", 
+     *          'id' => "campo_select",
+     *          'type' => "select",
      *          'labelDescription' => "Selecione uma opção",
-     *          'options'  => array( 
+     *          'options'  => array(
      *              'id' => 'Nome',
      *              'outra_opcao' => 'Outra Opção'
      *          )
@@ -72,16 +70,26 @@ class Metabox
     {
         $this->Fields = $Fields;
         $this->exec();
+    }
 
+
+    /**
+     * $Fields = Array('title','body','type');
+     * 
+     * <i>type:</i> danger, success, default, info
+     */
+    public function setFieldsNotification( $Fields )
+    {
+        $this->fieldsNotification = $Fields;
     }
 
 
     public function mountFields()
     {
-        foreach( $this->Fields as $Field ):
+        foreach ( $this->Fields as $Field ):
 
             $CurrentValue = get_post_meta( get_the_ID(), $Field[ 'id' ], true );
-            if( !$CurrentValue ){
+            if ( !$CurrentValue ) {
                 $CurrentValue = isset( $Field[ 'default' ] ) ? $Field[ 'default' ] : '';
             }
             $this->CurrentValue = $CurrentValue;
@@ -99,13 +107,12 @@ class Metabox
             $html .= "</tr>";
             echo $html;
         endforeach;
-
     }
 
 
     private function getFieldType( $Id, $Type, $Attrs = null, $Options = null )
     {
-        switch( $Type ) {
+        switch ( $Type ) {
             case 'text':
                 $Input = $this->fieldText( $Id, $Attrs );
                 break;
@@ -123,27 +130,24 @@ class Metabox
                 break;
         }
         return $Input;
-
     }
 
 
     private function build_field_attributes( $attrs )
     {
         $attributes = '';
-        if( !empty( $attrs ) ){
-            foreach( $attrs as $key => $attr ) {
+        if ( !empty( $attrs ) ) {
+            foreach ( $attrs as $key => $attr ) {
                 $attributes .= ' ' . $key . '="' . $attr . '"';
             }
         }
         return $attributes;
-
     }
 
 
     private function fieldText( $Id, $Attrs )
     {
         return "<input type=\"text\" name=\"{$Id}\" value=\"{$this->CurrentValue}\" stye=\"width: 100% !important\" {$this->build_field_attributes( $Attrs )}  />";
-
     }
 
 
@@ -152,7 +156,6 @@ class Metabox
         $this->loadscripts();
         return "<div class=\"root input-text-group\"><input type=\"text\" id=\"Attachment\" name=\"{$Id}\" value=\"{$this->CurrentValue}\" size=\"80%\" {$this->build_field_attributes( $Attrs )} />"
                 . "<input type=\"button\" id=\"submiteAttachmentBtn\" value=\"Selecionar Arquivo\" class=\"root button _2col\" /></div>";
-
     }
 
 
@@ -162,13 +165,12 @@ class Metabox
         $multiple = (!empty( $Attrs )) ? ( in_array( 'multiple', $Attrs )) ? '[]' : '' : false;
 
         $html = sprintf( '<select id="%1$s" name="%1$s%2$s"%3$s>', $Id, $multiple, $this->build_field_attributes( $Attrs ) );
-        foreach( $Options as $key => $label ) {
+        foreach ( $Options as $key => $label ) {
             $selected = $this->is_selected( $this->CurrentValue, $key );
             $html .= sprintf( '<option value="%s"%s>%s</option>', $key, $selected, $label );
         }
         $html .= '</select>';
         return $html;
-
     }
 
 
@@ -183,9 +185,9 @@ class Metabox
     private function is_selected( $current, $key )
     {
         $selected = false;
-        if( is_array( $current ) ){
-            for( $i = 0; $i < count( $current ); $i++ ) {
-                if( selected( $current[ $i ], $key, false ) ){
+        if ( is_array( $current ) ) {
+            for ( $i = 0; $i < count( $current ); $i++ ) {
+                if ( selected( $current[ $i ], $key, false ) ) {
                     $selected = selected( $current[ $i ], $key, false );
                     break 1;
                 }
@@ -194,46 +196,46 @@ class Metabox
             $selected = selected( $current, $key, false );
         }
         return $selected;
-
     }
 
 
     public function add()
     {
         add_meta_box( $this->Slug, $this->LabelTitle, array( $this, 'mountFields' ), $this->PostTypeScreen, $this->Context, $this->Priority );
-
     }
 
 
     public function save( $post_id )
     {
         // Verify if this is an auto save routine.
-        if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ){
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
             return $post_id;
         }
         // Check permissions.
-        if( isset( $_POST[ 'post_type' ] ) && in_array( $_POST[ 'post_type' ], $this->PostTypeScreen ) ){
-            if( !current_user_can( 'edit_page', $post_id ) ){
+
+        if ( isset( $_POST[ 'post_type' ] ) && (is_array( $this->PostTypeScreen ) ) ? in_array( $_POST[ 'post_type' ], $this->PostTypeScreen ) : $this->PostTypeScreen ) {
+            if ( !current_user_can( 'edit_page', $post_id ) ) {
                 return $post_id;
             }
-        } elseif( !current_user_can( 'edit_post', $post_id ) ){
+        } elseif ( !current_user_can( 'edit_post', $post_id ) ) {
             return $post_id;
         }
-        foreach( $this->Fields as $field ) {
+
+        foreach ( $this->Fields as $field ) {
             $name = $field[ 'id' ];
             $value = isset( $_POST[ $name ] ) ? $_POST[ $name ] : null;
 
-            if( !in_array( $field[ 'type' ], array( 'separator', 'title' ) ) ){
+            if ( !in_array( $field[ 'type' ], array( 'separator', 'title' ) ) ) {
                 $old = get_post_meta( $post_id, $name, true );
-                $new = apply_filters( 'meta_' . $this->id, $value, $name );
-                if( $new && $new != $old ){
+                $new = apply_filters( 'meta_' . $this->Slug, $value, $name );
+
+                if ( $new && $new != $old ) {
                     update_post_meta( $post_id, $name, $new );
-                } elseif( '' == $new && $old ){
+                } elseif ( '' == $new && $old ) {
                     delete_post_meta( $post_id, $name, $old );
                 }
             }
         }
-
     }
 
 
@@ -243,7 +245,6 @@ class Metabox
         add_action( 'add_meta_boxes', array( $this, 'add' ) );
         // Save Metaboxs.
         add_action( 'save_post', array( $this, 'save' ) );
-
     }
 
 
@@ -287,7 +288,6 @@ class Metabox
             };
         });
     </script>';
-
     }
 
 

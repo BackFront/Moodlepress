@@ -12,6 +12,8 @@ Text Domain: Esse template, assim como as classes, funções, modulos, conteudos
 e não podem ser modificados sem aviso previo ao autor e desenvolvedor do tema
 */
 
+@import "assets/fonts.css";
+
 pre.xdebug-var-dump {
     position: fixed !important;
     z-index: 999999999 !important;
@@ -32,6 +34,75 @@ body.login-page {
 /*====================================================
 PAGINA CURSOS
 =====================================================*/
-body,html {
-    height: 100%;
+body,html { height: 100%; }
+
+
+/*====================================================
+PAGINA LOGIN
+=====================================================*/
+.login-page { overflow: hidden; }
+
+/*Butons - site | cadastrar*/
+
+.login-page .group-button-login { margin-top: 20px; }
+.login-page .group-button-login .btn { 
+    width: 178px;
+    padding: 5px; 
+    border: 2px solid rgb(54, 127, 169); 
+    color: #fff;
+    background: rgba(54, 127, 169, .3);
+    font-family: arial;
+    font-weight: bold;
 }
+
+
+
+
+/*====================================================
+MENU
+=====================================================*/
+
+
+/*====================================================
+SITE
+=====================================================*/
+.site { padding-top: 0; }
+
+.site .navbar .navbar-brand img { 
+    width: 30px; 
+    display: inline-block; 
+}
+.site .navbar .navbar-brand { 
+    margin-top: -2px;
+    font-family: 'ubuntu-regular';
+}
+
+.site .navbar,
+.site .navbar .navbar-brand,
+.site .navbar .navbar-brand img
+{
+    transition: all .2s;
+    -moz-transition: all .2s;
+    -ms-transition: all .2s;
+    -webkit-transition: all .2s;
+}
+
+.site .initial-top {
+    transition: all .2s;
+}
+.site .initial-top.navbar {
+    margin: 30px;
+    background-color: transparent;
+    border: none;
+}
+
+.site .initial-top.navbar .navbar-brand {
+    margin-top: -25px;
+    font-size: 30px;
+}
+
+.site .initial-top.navbar .navbar-brand img {
+    width: 70px;
+    display: inline-block;
+}
+/*----------- HOME ------------*/

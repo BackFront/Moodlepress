@@ -1,8 +1,6 @@
 <?php
-
 class Dashboard
 {
-
 
     private $Controller;
     private $PageInfo;
@@ -14,33 +12,32 @@ class Dashboard
         $this->Controller = $Controller;
         $Controller = str_replace( '/', '-', $Controller );
 
-        if( $Controller ):
+        if ( $Controller ):
             $pageID = get_page_by_path( $Controller );
-            if( true ){
+            if ( true ) {
                 $Page = get_page( $pageID, OBJECT );
-                $this->PageInfo = $Page;
+                $this->PageInfo[ 'post_title' ] = $Page->post_title;
+                $this->PageInfo[ 'post_content' ] = $Page->post_content;
             } else {
                 $this->PageInfo = "";
             }
         else:
-            $this->PageInfo->post_title = "Dashboard";
-            $this->PageInfo->post_content = "";
+            $this->PageInfo[ 'post_title' ] = "Dashboard";
+            $this->PageInfo[ 'post_content' ] = null;
         endif;
-
     }
 
 
     public function Title()
     {
-        return $this->PageInfo->post_title;
 
+        return ( $this->PageInfo[ 'post_title' ] )? : null;
     }
 
 
     public function OptionalDescription()
     {
-        return ( $this->PageInfo->post_content )? : null;
-
+        return ( $this->PageInfo[ 'post_content' ] )? : null;
     }
 
 
@@ -49,15 +46,14 @@ class Dashboard
         $Pages = $this->Controller;
         $Pages = explode( "/", $Pages );
         $i = 0;
-        foreach( $Pages as $Page ):
+        foreach ( $Pages as $Page ):
             $P = ucfirst( strtolower( $Page ) );
-            if( $i != count( $Pages ) ):
+            if ( $i != count( $Pages ) ):
                 echo "<li>{$P}</li>";
             else:
                 echo "<li class=\"active\">{$P}</li>";
             endif;
         endforeach;
-
     }
 
 
