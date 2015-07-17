@@ -1,0 +1,171 @@
+<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: ".tinymce",
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+    });
+</script>
+<div class="col-md-6">
+    <!-- general form elements -->
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">Visão Geral</h3>
+        </div><!-- /.box-header -->
+        <!-- form start -->
+        <div class="box-body">
+            <div class="form-group">
+                <label for="course_name">Nome do Curso</label>
+                <input class="#[class]course_name#" id="course_name" placeholder="Digite o nome do curso..." type="text" value="#[value]course_name#">
+            </div>
+            <div class="form-group">
+                <label for="course_excerpt">Descrição Resumida</label>
+                <textarea class="#[class]course_excerpt#" rows="5" placeholder="Pequena descrição sobre o assunto que o curso se retrata"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="course_cover">Imagem destacada</label>
+                <div class="input-group input-group-sm">
+                    <input class="form-control" type="text" placeholder="Cole a URL da imagem ou escolha uma de seu computador" value="#[value]course_cover#">
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-flat" type="button">Selecionar imagem</button>
+                    </span>
+                </div>
+                <p class="help-block">Imagem que aparecerá como capa do curso</p>
+            </div>
+            <div class="form-group">
+                <label>Categoria</label>
+                <div class="input-group input-group-sm">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Opções <span class="fa fa-caret-down"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Adicionar nova categoria</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Gerenciar categorias</a></li>
+                        </ul>
+                    </div><!-- /btn-group -->
+                    <select class="form-control">
+                        <option>option 1</option>
+                        <option>option 2</option>
+                        <option>option 3</option>
+                        <option>option 4</option>
+                        <option>option 5</option>
+                    </select>
+                </div>
+            </div>
+        </div><!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div><!-- /.box -->
+</div>
+<div class="col-md-6">
+    <!-- USERS LIST -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Instrutores</h3>
+            <div class="box-tools pull-right">
+                <span class="label label-success">2 Instrutores</span>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body no-padding">
+            <ul class="users-list clearfix">
+                <li>
+                    <img src="http://placehold.it/100x100" alt="User Image">
+                    <a class="users-list-name" href="#">Alexander Pierce</a>
+                    <span class="users-list-date">12/05/2012</span>
+                    <button type="button" class="btn btn-sm btn-danger">
+                        <i class="icon-cross2"></i>
+                    </button>
+                </li>
+                <li>
+                    <img src="http://placehold.it/100x100" alt="User Image">
+                    <a class="users-list-name" href="#">Norman</a>
+                    <span class="users-list-date">17/07/2015</span>
+                    <button type="button" class="btn btn-sm btn-danger">
+                        <i class="icon-cross2"></i>
+                    </button>
+                </li>
+            </ul><!-- /.users-list -->
+        </div><!-- /.box-body -->
+        <div class="box-footer">
+            <div class="form-group">
+                <label for="course_instructor-add">Adicionar intrutor ao curso</label>                
+                <div class="input-group input-group-sm">
+                    <input class="form-control" id="course_instructor-add" placeholder="Digite o email do instrutor" type="text">
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-flat" type="button">Adicionar</button>
+                    </span>
+                </div>
+
+
+            </div>
+        </div><!-- /.box-footer -->
+    </div><!--/.box -->
+    <!-- DATES -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Datas</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" checked> Este curso não tem data final
+                </label>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Data de inicio:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" placeholder="dd/mm/aaaa" type="text">
+                    </div><!-- /.input group -->
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Data de final:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" placeholder="dd/mm/aaaa" type="text">
+                    </div><!-- /.input group -->
+                </div>
+            </div>
+            <hr />
+            <h4>Data de inscrição</h4>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" checked> Os usuários podem inscrever-se a qualquer momento
+                </label>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Data de inicio:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" placeholder="dd/mm/aaaa" type="text">
+                    </div><!-- /.input group -->
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Data de final:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" placeholder="dd/mm/aaaa" type="text">
+                    </div><!-- /.input group -->
+                </div>
+            </div>
+        </div><!-- /.box-body -->
+        <div class="box-footer">
+
+        </div><!-- /.box-footer -->
+    </div><!--/.box -->
+</div>
