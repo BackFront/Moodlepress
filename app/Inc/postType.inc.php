@@ -116,25 +116,25 @@ function agenda()
 
 
 //Monitoramento de Acesso
-add_action( 'init', 'monitoramento_acesso' );
+add_action( 'init', 'mp_courses' );
 
-function monitoramento_acesso()
+function mp_courses()
 {
-    $args_atuacao_post = array(
+    $args_mp_courses = array(
         'labels' => array(
-            'name' => 'Monitoramento de Acesso', 'post type general name',
-            'singular_name' => 'Monitoramento de Acesso',
-            'add_new' => 'Adicionar Item Monitoramento',
+            'name' => 'Cursos', 'post type general name',
+            'singular_name' => 'Curso',
+            'add_new' => 'Adicionar novo curso',
             'add_new_item' => 'Criar novo',
             'edit_item' => __( 'Editar' ),
-            'new_item' => __( 'Nova' ),
+            'new_item' => __( 'Novo' ),
             'all_items' => __( 'Ver todos' ),
-            'view_item' => __( 'Visualizar Item' ),
-            'search_items' => __( 'Procurar Item' ),
-            'not_found' => __( 'Nenhuma Item encontrado' ),
-            'not_found_in_trash' => __( 'Nenhuma Item encontrado na lixeira' ),
+            'view_item' => __( 'Visualizar curso' ),
+            'search_items' => __( 'Procurar curso' ),
+            'not_found' => __( 'Nenhuma curso encontrado' ),
+            'not_found_in_trash' => __( 'Nenhuma curso encontrado na lixeira' ),
             'parent_item_colon' => '',
-            'menu_name' => 'Monitoramento Acesso'
+            'menu_name' => 'Cursos'
         ),
         'public' => true,
         'publicly_queryable' => true,
@@ -142,13 +142,13 @@ function monitoramento_acesso()
         'show_in_menu' => true,
         'query_var' => true,
         'rewrite' => true,
-        'capability_type' => 'post',
+        'capability_type' => 'course',
         'has_archive' => true,
         'hierarchical' => true,
-        'menu_position' => null,
+        'menu_position' => 110,
         'taxonomies' => array( 'wo_plataforma' ),
         'supports' => array( 'title', 'editor', 'author' )
     );
-    register_post_type( 'monitoramento_acesso', $args_atuacao_post );
+    register_post_type( 'mp_courses', $args_mp_courses );
     flush_rewrite_rules();
 }

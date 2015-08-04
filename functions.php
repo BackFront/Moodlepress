@@ -13,6 +13,7 @@ inc("app/Inc/siteSettings.inc.php");
 inc("app/Inc/metabox.inc.php");
 inc("app/Inc/postType.inc.php");
 inc("app/Inc/LoadModules.inc.php");
+inc("app/Inc/userRole.php");
 
 function mytheme_enqueue_options_style() {
     wp_enqueue_style('mytheme-options-style', get_template_directory_uri() . '/assets/admin/admin.css');

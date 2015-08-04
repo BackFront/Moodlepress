@@ -58,9 +58,79 @@
             </div>
         </div><!-- /.box-body -->
         <div class="box-footer">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Salvar alterações</button>
         </div>
     </div><!-- /.box -->
+
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Incrição e Valor do curso</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+            <div class="form-group">
+                <label>Quem pode participar deste curso</label>
+                <select class="form-control">
+                    <option>Apenas adicionados manualmente</option>
+                    <option>Usuários registrados</option>
+                    <option id="dp_passcode">Usuários registrados e que contenham o pass code</option>
+                    <option>Usuários registrados e que completaram os cursos de pré-requisito</option>
+                </select>
+                <p class="help-block">
+                    <small>Selecione as limitações para acessar e participar deste curso.</small>
+                </p>
+            </div>
+
+
+
+            <!-- dependências de seleção -->
+
+            <ul>
+                <li data-depends="dp_passcode">
+                    <div class="form-group">
+                        <label for="course_name">Pass code</label>
+                        <input class="#[class]course_passcode#" id="course_passcode" placeholder="Digite o passcode do curso" type="text" value="#[value]course_passcode#">
+                    </div>
+                </li>
+                <li>
+                    <div class="form-group">
+                        <label>Curso pré-requisitado</label>
+                        <select class="form-control">
+                            <option>Curso A</option>
+                            <option>Curso B</option>
+                            <option>Curso C</option>
+                        </select>
+                    </div>
+
+                </li>
+            </ul>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Limitar quantidade de alunos neste curso
+                </label>
+
+            </div>
+
+            <input type="number" min="0"/>
+
+
+            <hr />
+
+            <h4>Mostrar livro aos alunos</h4>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Mostrar informações de progresso e avaliação aos alunos
+                </label>
+                <p class="help-block">
+                    <small>Se marcada, os alunos podem ver o seu progresso e notas.</small>
+                </p>
+            </div>
+        </div><!-- /.box-body -->
+        <div class="box-footer">
+
+        </div><!-- /.box-footer -->
+    </div><!--/.box -->
 </div>
 <div class="col-md-6">
     <!-- USERS LIST -->
@@ -162,6 +232,42 @@
                         <input class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" placeholder="dd/mm/aaaa" type="text">
                     </div><!-- /.input group -->
                 </div>
+            </div>
+        </div><!-- /.box-body -->
+        <div class="box-footer">
+
+        </div><!-- /.box-footer -->
+    </div><!--/.box -->
+
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Classes, Discussão e Livro</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+            <h4>Tamanho da classe</h4>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Limitar quantidade de alunos neste curso
+                </label>
+                <p class="help-block">
+                    <small>Use essa configuração para definir um limite para todas as classes. Desmarque para definir o tamanho como ilimitado.</small>
+                </p>
+            </div>
+
+            <input type="number" min="0"/>
+
+
+            <hr />
+
+            <h4>Mostrar livro aos alunos</h4>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Mostrar informações de progresso e avaliação aos alunos
+                </label>
+                <p class="help-block">
+                    <small>Se marcada, os alunos podem ver o seu progresso e notas.</small>
+                </p>
             </div>
         </div><!-- /.box-body -->
         <div class="box-footer">

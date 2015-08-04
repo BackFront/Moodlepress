@@ -6,9 +6,19 @@ get_header( "login" );
 if ( is_user_logged_in() ) {
     wp_redirect( home_url() );
 } elseif ( isset( $_POST[ 'log' ] ) || isset( $_POST[ 'pwd' ] ) ) {
-    if ( !$_POST[ 'log' ] || !$_POST[ 'pwd' ] )
-        echo $message = 'Login ou senha está(ão) em branco';
-    else {
+    if ( !$_POST[ 'log' ] || !$_POST[ 'pwd' ] ) {
+        
+        $msga = [
+            "type" => "info",
+            "head" => "Erro",
+            "body" => "Login ou senha está(ão) em branco"
+        ];
+        
+        Load( ["Alert" ] );
+        $msg = new Alert;
+        $msg->PHPErro( $msga );
+        
+    } else {
         $user = wp_authenticate( $_POST[ 'log' ], $_POST[ 'pwd' ] );
         if ( $user->ID > 0 ) {
             wp_set_auth_cookie( $user->ID );
